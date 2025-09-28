@@ -103,6 +103,16 @@
             background: #000;
         }
 
+        :root {
+            --portrait-max-h: 420px;
+        }
+
+        video.is-portrait {
+            height: var(--portrait-max-h);
+            object-fit: contain;
+        }
+
+
         @media (max-width: 800px) {
             .row {
                 grid-template-columns: 1fr;
@@ -110,6 +120,22 @@
         }
     </style>
 </head>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const markPortrait = v => {
+            // After metadata loads we know the intrinsic size
+            const w = v.videoWidth, h = v.videoHeight;
+            if (w && h) v.classList.toggle('is-portrait', h > w);
+        };
+
+        document.querySelectorAll('video').forEach(v => {
+            // In case metadata is already available
+            if (v.readyState >= 1) markPortrait(v);
+            v.addEventListener('loadedmetadata', () => markPortrait(v));
+        });
+    });
+</script>
 
 <body>
     <header>
@@ -120,7 +146,7 @@
 
     <main>
         <section id="conditioned">
-            <h2>Conditioned (2 seconds of conditioning audio)</h2>
+            <h2>Conditioned (2 seconds of conditioning audio) vs. Ground Truth</h2>
             <div class="rows">
                 <div class="row" aria-label="Example 1">
                     <figure>
@@ -227,7 +253,7 @@
         </section>
 
         <section id="longform">
-            <h2>Long-Form Generations</h2>
+            <h2>Long-Form Generations vs. MMAudio</h2>
             <div class="rows">
                 <div class="row" aria-label="Example 1">
                     <figure>
@@ -326,6 +352,59 @@
                         <h4>MMAudio</h4>
                         <video controls preload="metadata" playsinline>
                             <source src="assets/longform/tennis_2_mmaudio.mp4" type="video/mp4" />
+                            Your browser does not support the HTML5 video tag.
+                        </video>
+                    </figure>
+                </div>
+            </div>
+        </section>
+        <section id="shortcut">
+            <h2>Few-step Generations</h2>
+            <div class="rows">
+                <div class="row" aria-label="Example 6">
+                    <figure>
+                        <h4>32 steps</h4>
+                        <video controls preload="metadata" playsinline>
+                            <source src="assets/fewstep/woodpecker_32.mp4" type="video/mp4" />
+                            Your browser does not support the HTML5 video tag.
+                        </video>
+                    </figure>
+                    <figure>
+                        <h4>32 steps</h4>
+                        <video controls preload="metadata" playsinline>
+                            <source src="assets/fewstep/cricket_32.mp4" type="video/mp4" />
+                            Your browser does not support the HTML5 video tag.
+                        </video>
+                    </figure>
+                </div>
+                <div class="row" aria-label="Example 6">
+                    <figure>
+                        <h4>8 steps</h4>
+                        <video controls preload="metadata" playsinline>
+                            <source src="assets/fewstep/woodpecker_8.mp4" type="video/mp4" />
+                            Your browser does not support the HTML5 video tag.
+                        </video>
+                    </figure>
+                    <figure>
+                        <h4>8 steps</h4>
+                        <video controls preload="metadata" playsinline>
+                            <source src="assets/fewstep/cricket_8.mp4" type="video/mp4" />
+                            Your browser does not support the HTML5 video tag.
+                        </video>
+                    </figure>
+                </div>
+                <div class="row" aria-label="Example 6">
+                    <figure>
+                        <h4>2 steps</h4>
+                        <video controls preload="metadata" playsinline>
+                            <source src="assets/fewstep/woodpecker_2.mp4" type="video/mp4" />
+                            Your browser does not support the HTML5 video tag.
+                        </video>
+                    </figure>
+                    <figure>
+                        <h4>2 steps</h4>
+                        <video controls preload="metadata" playsinline>
+                            <source src="assets/fewstep/cricket_2.mp4" type="video/mp4" />
                             Your browser does not support the HTML5 video tag.
                         </video>
                     </figure>
