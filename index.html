@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paper Demo — Sample Page</title>
+  <style>
+    :root {
+      --maxw: 1100px;
+      --gap: 16px;
+      --bg: #0b0b0b;
+      --fg: #f5f5f7;
+      --muted: #a1a1aa;
+      --card: #151515;
+      --border: #222;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; }
+    header { border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02); }
+    header .wrap, main { max-width: var(--maxw); margin: 0 auto; padding: 16px; }
+    h1 { font-size: 28px; margin: 0; }
+    h2 { font-size: 22px; margin: 24px 0 12px; }
+    .muted { color: var(--muted); font-size: 14px; }
+
+    .rows { display: grid; gap: 24px; }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+    }
+    .row-title { margin: 0 0 6px; font-size: 16px; color: var(--muted); }
+
+    figure {
+      margin: 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+    figure h4 { margin: 0 0 8px; font-size: 14px; color: var(--muted); font-weight: 600; letter-spacing: .2px; }
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      outline: none;
+      background: #000;
+    }
+
+    @media (max-width: 800px) {
+      .row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Sample Page</h1>
+    </div>
+  </header>
+
+  <main>
+    <section id="conditioned">
+      <h2>Conditioned (2 seconds of conditioning audio)</h2>
+      <div class="rows">
+        <div class="row" aria-label="Example 1">
+          <figure>
+            <h4>Generated</h4>
+            <video controls preload="metadata" playsinline muted>
+              <source src="assets/conditioned/drums_gen.mp4" type="video/mp4" />
+              Your browser does not support the HTML5 video tag.
+            </video>
+          </figure>
+          <figure>
+            <h4>Ground Truth</h4>
+            <video controls preload="metadata" playsinline muted>
+              <source src="assets/conditioned/drums_gt.mp4" type="video/mp4" />
+              Your browser does not support the HTML5 video tag.
+            </video>
+          </figure>
+        </div>
+
+        <div class="row" aria-label="Example 2">
+          <figure>
+            <h4>Generated</h4>
+            <video controls preload="metadata" playsinline muted>
+              <source src="assets/conditioned/typing_gen.mp4" type="video/mp4" />
+              Your browser does not support the HTML5 video tag.
+            </video>
+          </figure>
+          <figure>
+            <h4>Ground Truth</h4>
+            <video controls preload="metadata" playsinline muted>
+              <source src="assets/conditioned/typing_gt.mp4" type="video/mp4" />
+              Your browser does not support the HTML5 video tag.
+            </video>
+          </figure>
+        </div>
+
+        <div class="row" aria-label="Example 3">
+          <figure>
+            <h4>Generated</h4>
+            <video controls preload="metadata" playsinline muted>
+              <source src="assets/conditioned/rocket_gen.mp4" type="video/mp4" />
+              Your browser does not support the HTML5 video tag.
+            </video>
+          </figure>
+          <figure>
+            <h4>Ground Truth</h4>
+            <video controls preload="metadata" playsinline muted>
+              <source src="assets/conditioned/rocket_gt.mp4" type="video/mp4" />
+              Your browser does not support the HTML5 video tag.
+            </video>
+          </figure>
+        </div>
+
+        <div class="row" aria-label="Example 4">
+          <figure>
+            <h4>Generated</h4>
+            <video controls preload="metadata" playsinline muted>
+              <source src="assets/conditioned/motorcycle_gen.mp4" type="video/mp4" />
+              Your browser does not support the HTML5 video tag.
+            </video>
+          </figure>
+          <figure>
+            <h4>Ground Truth</h4>
+            <video controls preload="metadata" playsinline muted>
+              <source src="assets/conditioned/motorcycle_gt.mp4" type="video/mp4" />
+              Your browser does not support the HTML5 video tag.
+            </video>
+          </figure>
+        </div>
+
+        <div class="row" aria-label="Example 5">
+          <figure>
+            <h4>Generated</h4>
+            <video controls preload="metadata" playsinline muted>
+              <source src="assets/conditioned/drums2_gen.mp4" type="video/mp4" />
+              Your browser does not support the HTML5 video tag.
+            </video>
+          </figure>
+          <figure>
+            <h4>Ground Truth</h4>
+            <video controls preload="metadata" playsinline muted>
+              <source src="assets/conditioned/drums2_gt.mp4" type="video/mp4" />
+              Your browser does not support the HTML5 video tag.
+            </video>
+          </figure>
+        </div>
+
+        <div class="row" aria-label="Example 6">
+          <figure>
+            <h4>Generated</h4>
+            <video controls preload="metadata" playsinline muted>
+              <source src="assets/conditioned/typewriter_gen.mp4" type="video/mp4" />
+              Your browser does not support the HTML5 video tag.
+            </video>
+          </figure>
+          <figure>
+            <h4>Ground Truth</h4>
+            <video controls preload="metadata" playsinline muted>
+              <source src="assets/conditioned/typewriter_gt.mp4" type="video/mp4" />
+              Your browser does not support the HTML5 video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
