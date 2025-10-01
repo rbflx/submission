@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sample Page</title>
+    <title>SALSA-V</title>
     <style>
         :root {
             --maxw: 1100px;
@@ -39,11 +39,14 @@
             background: rgba(255, 255, 255, 0.02);
         }
 
-        header .wrap,
-        main {
-            max-width: var(--maxw);
+        .wrap {
+            max-width: var(--maxw, 1100px);
             margin: 0 auto;
             padding: 16px;
+        }
+
+        main {
+            padding: 0;
         }
 
         h1 {
@@ -68,7 +71,7 @@
 
         .row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr));
             gap: var(--gap);
         }
 
@@ -112,9 +115,40 @@
             object-fit: contain;
         }
 
+        #abstract {
+            margin-top: 32px;
+            margin-bottom: 32px;
+        }
+
+        :root {
+            --maxw-2: 1100px;
+            --maxw-3: 1400px;
+        }
+
+        .grid {
+            display: grid;
+            gap: var(--gap);
+            grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr));
+        }
+
+        .cols-2 {
+            --cols: 2;
+        }
+
+        .cols-3 {
+            --cols: 3;
+        }
+
+        section.cols-3 .wrap {
+            --maxw: var(--maxw-3);
+        }
+
+        section.cols-2 .wrap {
+            --maxw: var(--maxw-2);
+        }
 
         @media (max-width: 800px) {
-            .row {
+            .grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -140,274 +174,343 @@
 <body>
     <header>
         <div class="wrap">
-            <h1>Sample Page</h1>
+            <h1>SALSA-V</h1>
         </div>
     </header>
 
     <main>
+        <section id="abstract">
+            <div class="wrap">
+                We propose SALSA-V, a multimodal video-to-audio generation model capable of synthesizing highly
+                synchronized, high-fidelity long-form audio from silent video content. Our approach introduces a masked
+                diffusion objective, enabling audio-conditioned generation and the seamless synthesis of audio sequences
+                of unconstrained length. Additionally, by integrating a shortcut loss into our training process, we
+                achieve
+                rapid generation of high-quality audio samples in as few as eight sampling steps, paving the way for
+                near-real-time applications without requiring dedicated fine-tuning or retraining. We demonstrate that
+                SALSA-V significantly outperforms existing state-of-the-art methods in both audiovisual alignment and
+                synchronization with video content in quantitative evaluation and a human listening study. Furthermore,
+                our use of random masking during training enables our model to match spectral characteristics of
+                reference
+                audio samples, broadening its applicability to professional audio synthesis tasks such as Foley
+                generation and
+                sound design.
+            </div>
+        </section>
+
+
+        <section id="longform" class="cols-3">
+            <div class="wrap">
+                <h2>Long-Form Generations vs. MMAudio</h2>
+                <div class="rows">
+                    <div class="row" aria-label="Example 1">
+                        <figure>
+                            <h4>Ground-Truth</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/race_car_gt.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>MMAudio</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/race_car_mmaudio.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>Ours</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/race_car.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
+
+                    <div class="row" aria-label="Example 2">
+                        <figure>
+                            <h4>Ground-Truth</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/tennis_gt.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>MMAudio</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/tennis_mmaudio.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>Ours</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/tennis.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
+
+                    <div class="row" aria-label="Example 3">
+                        <figure>
+                            <h4>Ground-Truth</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/helicopter_gt.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>MMAudio</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/helicopter_mmaudio.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>Ours</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/helicopter.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
+
+                    <div class="row" aria-label="Example 4">
+                        <figure>
+                            <h4>Ground-Truth</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/ping_pong_gt.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>MMAudio</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/ping_pong_mmaudio.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>Ours</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/ping_pong.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
+
+                    <div class="row" aria-label="Example 5">
+                        <figure>
+                            <h4>Ground-Truth</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/monster_trucks_gt.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>MMAudio</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/monster_trucks_mmaudio.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>Ours</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/monster_trucks.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
+
+                    <div class="row" aria-label="Example 6">
+                        <figure>
+                            <h4>Ground-Truth</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/tennis_2_gt.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>MMAudio</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/tennis_2_mmaudio.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>Ours</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/longform/tennis_2.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="conditioned">
-            <h2>Conditioned (2 seconds of conditioning audio) vs. Ground Truth</h2>
-            <div class="rows">
-                <div class="row" aria-label="Example 1">
-                    <figure>
-                        <h4>Generated</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/conditioned/drums_gen.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>Ground Truth</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/conditioned/drums_gt.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                </div>
+            <div class="wrap">
+                <h2>Conditioned (2 seconds of conditioning audio) vs. Ground Truth</h2>
+                <div class="rows">
+                    <div class="row" aria-label="Example 1">
+                        <figure>
+                            <h4>Generated</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/conditioned/drums_gen.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>Ground Truth</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/conditioned/drums_gt.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
 
-                <div class="row" aria-label="Example 2">
-                    <figure>
-                        <h4>Generated</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/conditioned/typing_gen.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>Ground Truth</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/conditioned/typing_gt.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                </div>
+                    <div class="row" aria-label="Example 2">
+                        <figure>
+                            <h4>Generated</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/conditioned/typing_gen.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>Ground Truth</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/conditioned/typing_gt.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
 
-                <div class="row" aria-label="Example 3">
-                    <figure>
-                        <h4>Generated</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/conditioned/rocket_gen.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>Ground Truth</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/conditioned/rocket_gt.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                </div>
+                    <div class="row" aria-label="Example 3">
+                        <figure>
+                            <h4>Generated</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/conditioned/rocket_gen.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>Ground Truth</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/conditioned/rocket_gt.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
 
-                <div class="row" aria-label="Example 4">
-                    <figure>
-                        <h4>Generated</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/conditioned/motorcycle_gen.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>Ground Truth</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/conditioned/motorcycle_gt.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                </div>
+                    <div class="row" aria-label="Example 4">
+                        <figure>
+                            <h4>Generated</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/conditioned/motorcycle_gen.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>Ground Truth</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/conditioned/motorcycle_gt.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
 
-                <div class="row" aria-label="Example 5">
-                    <figure>
-                        <h4>Generated</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/conditioned/drums2_gen.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>Ground Truth</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/conditioned/drums2_gt.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                </div>
+                    <div class="row" aria-label="Example 5">
+                        <figure>
+                            <h4>Generated</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/conditioned/drums2_gen.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>Ground Truth</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/conditioned/drums2_gt.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
 
-                <div class="row" aria-label="Example 6">
-                    <figure>
-                        <h4>Generated</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/conditioned/typewriter_gen.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>Ground Truth</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/conditioned/typewriter_gt.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
+                    <div class="row" aria-label="Example 6">
+                        <figure>
+                            <h4>Generated</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/conditioned/typewriter_gen.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>Ground Truth</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/conditioned/typewriter_gt.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="longform">
-            <h2>Long-Form Generations vs. MMAudio</h2>
-            <div class="rows">
-                <div class="row" aria-label="Example 1">
-                    <figure>
-                        <h4>Ours</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/longform/race_car.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>MMAudio</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/longform/race_car_mmaudio.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                </div>
-
-                <div class="row" aria-label="Example 2">
-                    <figure>
-                        <h4>Ours</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/longform/tennis.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>MMAudio</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/longform/tennis_mmaudio.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                </div>
-
-                <div class="row" aria-label="Example 3">
-                    <figure>
-                        <h4>Ours</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/longform/helicopter.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>MMAudio</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/longform/helicopter_mmaudio.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                </div>
-
-                <div class="row" aria-label="Example 4">
-                    <figure>
-                        <h4>Ours</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/longform/ping_pong.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>MMAudio</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/longform/ping_pong_mmaudio.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                </div>
-
-                <div class="row" aria-label="Example 5">
-                    <figure>
-                        <h4>Ours</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/longform/monster_trucks.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>MMAudio</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/longform/monster_trucks_mmaudio.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                </div>
-
-                <div class="row" aria-label="Example 6">
-                    <figure>
-                        <h4>Generated</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/longform/tennis_2.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>MMAudio</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/longform/tennis_2_mmaudio.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                </div>
-            </div>
-        </section>
         <section id="shortcut">
-            <h2>Few-step Generations</h2>
-            <div class="rows">
-                <div class="row" aria-label="Example 6">
-                    <figure>
-                        <h4>32 steps</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/fewstep/woodpecker_32.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>32 steps</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/fewstep/cricket_32.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                </div>
-                <div class="row" aria-label="Example 6">
-                    <figure>
-                        <h4>8 steps</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/fewstep/woodpecker_8.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>8 steps</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/fewstep/cricket_8.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                </div>
-                <div class="row" aria-label="Example 6">
-                    <figure>
-                        <h4>2 steps</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/fewstep/woodpecker_2.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
-                    <figure>
-                        <h4>2 steps</h4>
-                        <video controls preload="metadata" playsinline>
-                            <source src="assets/fewstep/cricket_2.mp4" type="video/mp4" />
-                            Your browser does not support the HTML5 video tag.
-                        </video>
-                    </figure>
+            <div class="wrap">
+                <h2>Few-step Generations</h2>
+                <div class="rows">
+                    <div class="row" aria-label="Example 6">
+                        <figure>
+                            <h4>32 steps</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/fewstep/woodpecker_32.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>32 steps</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/fewstep/cricket_32.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
+                    <div class="row" aria-label="Example 6">
+                        <figure>
+                            <h4>8 steps</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/fewstep/woodpecker_8.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>8 steps</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/fewstep/cricket_8.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
+                    <div class="row" aria-label="Example 6">
+                        <figure>
+                            <h4>2 steps</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/fewstep/woodpecker_2.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                        <figure>
+                            <h4>2 steps</h4>
+                            <video controls preload="metadata" playsinline>
+                                <source src="assets/fewstep/cricket_2.mp4" type="video/mp4" />
+                                Your browser does not support the HTML5 video tag.
+                            </video>
+                        </figure>
+                    </div>
                 </div>
             </div>
         </section>
